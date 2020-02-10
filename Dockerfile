@@ -2,7 +2,8 @@ FROM debian:testing-20200130-slim
 ARG STACK_VERSION=2.1.3
 RUN \
   apt-get update && \
-  apt-get install --assume-yes \
+  apt-get install --assume-yes --no-install-recommends \
+    ca-certificates \
     gcc \
     git \
     libgmp-dev \
@@ -11,6 +12,8 @@ RUN \
     wget \
     xz-utils \
     zlib1g-dev && \
+  apt-get clean && \
+  rm --recursive /var/lib/apt/lists && \
   wget \
     --no-verbose \
     --output-document stack.tgz \
